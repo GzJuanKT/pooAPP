@@ -245,6 +245,21 @@ public class DaoColegio implements Serializable {
             em.close();
         }
     }
+    
+    public int getIdColegio(String nombreColegio) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createQuery("SELECT c FROM Colegio c WHERE c.colegio = :colegio")
+                    .setParameter("colegio", nombreColegio);
+            Colegio colegio = (Colegio) q.getSingleResult();
+            return colegio.getIdColegio();
+        } catch (Exception e) {
+            return 0;
+        } finally {
+            em.close();
+        }
+    }
+
 
     public int getTotalColegios() {
         EntityManager em = getEntityManager();

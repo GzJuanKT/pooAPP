@@ -362,11 +362,23 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         
         DaoEstudiante daoEstu = new DaoEstudiante(conexion);
         DaoBarrio daobarrio = new DaoBarrio(conexion);
+        DaoColegio daocole = new DaoColegio(conexion);
+        DaoHorario daohorario = new DaoHorario(conexion);
         
+        //--
         int idBarrio = daobarrio.getIdBarrio((String) nombreBarrio);
         barrios = daobarrio.buscarBarrio(idBarrio);
+        
+        int idColegio = daocole.getIdColegio((String) nombreColegio);
+        colegios = daocole.buscarColegio(idColegio);
+        
+        int idHorario = daohorario.getIdHorario((String) nombreHorario);
+        horarios = daohorario.buscarHorario(idHorario);
+        
+        //--
         alguien.setBarriosidBarrio(barrios);
-//        Barrio neighborhood = daobarrio.buscarBarrio(idBarrio))
+        alguien.setColegiosidColegio(colegios);
+        alguien.setHorariosIdJornada(horarios);
         
         try {
             daoEstu.agregar(alguien);
@@ -375,11 +387,7 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
             return;
         }   catch (Exception ex) {
                 Logger.getLogger(VentanaCRUDEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
-            }
-//        
-//        int barrioIdInteger = daobarrio.getIdBarrio(barrio);    
-//        alguien.setBarriosidBarrio(barrioIdInteger);
-//        daoEstu.agregar(alguien);        
+            }       
         
         int totalEstudiantes = daoEstu.getTotalEstudiantes();
         JOptionPane.showMessageDialog(this, "Se agrego el estudiante "+nombre+" "+apellido+" al sistema.\nTotal Estudiantes: "+totalEstudiantes);
@@ -388,6 +396,7 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         opcionesBarrios.setSelectedIndex(0);
         opcionesColegios.setSelectedIndex(0);
         opcionesHorarios.setSelectedIndex(0);
+        
     }//GEN-LAST:event_botonAgregarActionPerformed
 
     private void botonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLimpiarActionPerformed
@@ -404,11 +413,6 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
 
     private void opcionesHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesHorariosActionPerformed
         // TODO add your handling code here:
-//        opcionesHorarios.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e){
-//                
-//            }
-//        };
     }//GEN-LAST:event_opcionesHorariosActionPerformed
         
     private void cargarDatosOpcHorarios(){

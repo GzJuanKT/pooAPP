@@ -18,6 +18,7 @@ import juanramos.daos.exceptions.IllegalOrphanException;
 import juanramos.daos.exceptions.NonexistentEntityException;
 import juanramos.daos.exceptions.PreexistingEntityException;
 import juanramos.entidades.Bus;
+import juanramos.entidades.Colegio;
 import juanramos.entidades.Estudiante;
 import juanramos.entidades.Conductor;
 import juanramos.entidades.Horario;
@@ -349,6 +350,20 @@ public class DaoHorario implements Serializable {
         EntityManager em = getEntityManager();
         try {
             return em.find(Horario.class, id);
+        } finally {
+            em.close();
+        }
+    }
+        
+    public int getIdHorario(String nombreHorario) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createQuery("SELECT h FROM Horario h WHERE h.jornada = :jornada")
+                    .setParameter("jornada", nombreHorario);
+            Horario horario = (Horario) q.getSingleResult();
+            return horario.getIdJornada();
+        } catch (Exception e) {
+            return 0;
         } finally {
             em.close();
         }
