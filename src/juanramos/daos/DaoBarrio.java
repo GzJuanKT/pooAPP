@@ -246,6 +246,20 @@ public class DaoBarrio implements Serializable {
         }
     }
 
+    public int getIdBarrio(String nombreBarrio) {
+        EntityManager em = getEntityManager();
+        try {
+            Query q = em.createQuery("SELECT b FROM Barrio b WHERE b.barrio = :barrio")
+                    .setParameter("barrio", nombreBarrio);
+            Barrio barrio = (Barrio) q.getSingleResult();
+            return barrio.getIdBarrio();
+        } catch (Exception e) {
+            return 0;
+        } finally {
+            em.close();
+        }
+    }
+
     public int getTotalBarrios() {
         EntityManager em = getEntityManager();
         try {
