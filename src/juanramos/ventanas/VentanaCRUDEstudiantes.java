@@ -295,9 +295,9 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
             try {
                 Integer numeroId = Integer.valueOf(id);
                 Estudiante alguien = objetoDao.buscarEstudiante(numeroId);
-                Colegio colegios = new Colegio();
-                Barrio barrios = new Barrio();
-                Horario horarios = new Horario();
+                Colegio colegios = alguien.getColegiosidColegio();
+                Barrio barrios = alguien.getBarriosidBarrio();
+                Horario horarios = alguien.getHorariosIdJornada();
                 
                 if (alguien == null){
                     JOptionPane.showMessageDialog(this, "El estudiante a buscar no existe.");
