@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import juanramos.daos.exceptions.NonexistentEntityException;
 import juanramos.daos.exceptions.PreexistingEntityException;
 import juanramos.entidades.Bus;
 import juanramos.entidades.Horario;
@@ -33,6 +34,9 @@ import juanramos.entidades.Horario;
  * @author juand
  */
 public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
+    
+    private Estudiante alguien;
+    
 
     /**
      * Creates new form VentanaCRUDEstudiantes
@@ -294,7 +298,8 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
             
             try {
                 Integer numeroId = Integer.valueOf(id);
-                Estudiante alguien = objetoDao.buscarEstudiante(numeroId);
+                alguien = objetoDao.buscarEstudiante(numeroId);
+                
                 Colegio colegios = alguien.getColegiosidColegio();
                 Barrio barrios = alguien.getBarriosidBarrio();
                 Horario horarios = alguien.getHorariosIdJornada();
@@ -309,6 +314,15 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
                     opcionesHorarios.setSelectedItem(horarios.getJornada());
                     opcionesColegios.setSelectedItem(colegios.getColegio());
                     opcionesBarrios.setSelectedItem(barrios.getBarrio());
+                    
+                    String titulo = getTitle();
+                    if (titulo.indexOf("Editar") != -1){
+                        campoNombre.setEditable(true);
+                        campoApellido.setEditable(true);
+                        opcionesHorarios.setEditable(true);
+                        opcionesBarrios.setEditable(true);
+                        opcionesColegios.setEditable(true);
+                    }
                 }
 
             } catch (Exception e) { 
@@ -321,6 +335,57 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
 
     private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
         // TODO add your handling code here:
+        // recupero los datos que fueron cambiados en los campos del formulario
+        String nombre = campoNombre.getText();
+        String apellido = campoApellido.getText();
+        String nombreColegio = (String) opcionesColegios.getSelectedItem();
+        String nombreBarrio = (String) opcionesBarrios.getSelectedItem();
+        String nombreHorario = (String) opcionesHorarios.getSelectedItem();
+        
+        //--
+        Colegio colegios = new Colegio();
+        Barrio barrios = new Barrio();
+        Horario horarios = new Horario();
+        
+        //--
+        alguien.setNombre(nombre);
+        alguien.setApellido(apellido);
+        colegios.setColegio(nombreColegio);
+        barrios.setBarrio(nombreBarrio);
+        horarios.setJornada(nombreHorario);
+        
+        // --
+        EntityManagerFactory conexion = Persistence.createEntityManagerFactory("TioJuanitoBusesPU");
+        DaoEstudiante daoestu = new DaoEstudiante(conexion); 
+        DaoBarrio daobarrio = new DaoBarrio(conexion);
+        DaoColegio daocole = new DaoColegio(conexion);
+        DaoHorario daohorario = new DaoHorario(conexion);
+        
+        //--
+        int idBarrio = daobarrio.getIdBarrio((String) nombreBarrio);
+        barrios = daobarrio.buscarBarrio(idBarrio);
+        
+        int idColegio = daocole.getIdColegio((String) nombreColegio);
+        colegios = daocole.buscarColegio(idColegio);
+        
+        int idHorario = daohorario.getIdHorario((String) nombreHorario);
+        horarios = daohorario.buscarHorario(idHorario);
+        
+        //--
+        alguien.setBarriosidBarrio(barrios);
+        alguien.setColegiosidColegio(colegios);
+        alguien.setHorariosIdJornada(horarios);
+        
+        try {
+            daoestu.editar(alguien);
+        } catch (NonexistentEntityException ex) {
+            JOptionPane.showMessageDialog(this, "Error: El estudiante a editar no existe en la base de datos.");
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error: No se puede editar el estudiante.");
+            return;
+        }
+        
+        
     }//GEN-LAST:event_botonEditarActionPerformed
         
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed

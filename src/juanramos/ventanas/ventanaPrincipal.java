@@ -252,6 +252,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void itemMenuAgregarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuAgregarEstudianteActionPerformed
         // TODO add your handling code here:
         VentanaCRUDEstudiantes miVentana = new VentanaCRUDEstudiantes(this, true);
+        miVentana.setTitle("Agregar Estudiantes");
         miVentana.setLocationRelativeTo(this);
         
         JButton botones[] = new JButton[] {miVentana.getBotonEditar(),
@@ -266,6 +267,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private void itemMenuBuscarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuBuscarEstudianteActionPerformed
         // TODO add your handling code here:
         VentanaCRUDEstudiantes miVentana = new VentanaCRUDEstudiantes(this, true);
+        miVentana.setTitle("Buscar Estudiantes");
         JButton botones[] = new JButton[] {miVentana.getBotonAgregar(), 
                                             miVentana.getBotonEditar(),
                                             miVentana.getBotonEliminar()};
@@ -289,7 +291,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void itemMenuEliminarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuEliminarEstudianteActionPerformed
         // TODO add your handling code here:
-        VentanaCRUDEstudiantes miVentana = new VentanaCRUDEstudiantes(this, true);
+        VentanaCRUDEstudiantes miVentana = new VentanaCRUDEstudiantes(this, true);   
+        miVentana.setTitle("Eliminar Estudiantes");
+
         JButton botones[] = new JButton[] {miVentana.getBotonAgregar(),
                                             miVentana.getBotonEditar()};
         
@@ -311,7 +315,9 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void itemMenuEditarEstudianteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuEditarEstudianteActionPerformed
         // TODO add your handling code here:
-        VentanaCRUDEstudiantes miVentana = new VentanaCRUDEstudiantes(this, true);
+        VentanaCRUDEstudiantes miVentana = new VentanaCRUDEstudiantes(this, true);        
+        miVentana.setTitle("Editar Estudiantes");
+
         JButton botones[] = new JButton[] {miVentana.getBotonAgregar(),
                                             miVentana.getBotonEliminar()};
         
@@ -324,7 +330,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                                      miVentana.getOpcionesColegios()};
         
         desactivarBotones(botones);
-        desactivarComboBox(comboOpciones);
+//        desactivarComboBox(comboOpciones);
         camposSoloLectura(camposDeTexto);
         
         miVentana.setLocationRelativeTo(this);
@@ -358,7 +364,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conexion = DriverManager.getConnection(url,"root","J@nda.1110");
             Statement st = conexion.createStatement();
-            String sqlQuery = "SELECT * FROM tiojuanito.colegios;";
+            String sqlQuery = "SELECT * FROM tiojuanito.estudiantes;";
             ResultSet rs = st.executeQuery(sqlQuery);
             
             while(tablaDatos.getRowCount() > 0){
