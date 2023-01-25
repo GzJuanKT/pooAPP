@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import juanramos.daos.exceptions.IllegalOrphanException;
 import juanramos.daos.exceptions.NonexistentEntityException;
 import juanramos.daos.exceptions.PreexistingEntityException;
 import juanramos.entidades.Bus;
@@ -305,15 +306,15 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
                 Integer numeroId = Integer.valueOf(id);
                 alguien = objetoDao.buscarEstudiante(numeroId);
                 
-                Colegio colegios = alguien.getColegiosidColegio();
-                Barrio barrios = alguien.getBarriosidBarrio();
-                Horario horarios = alguien.getHorariosIdJornada();
-                
                 if (alguien == null){
                     JOptionPane.showMessageDialog(this, "El estudiante a buscar no existe.");
                     return;
                 }
-                else{
+                else {
+                
+                    Colegio colegios = alguien.getColegiosidColegio();
+                    Barrio barrios = alguien.getBarriosidBarrio();
+                    Horario horarios = alguien.getHorariosIdJornada();
                     campoNombre.setText(alguien.getNombre());
                     campoApellido.setText(alguien.getApellido());
                     opcionesHorarios.setSelectedItem(horarios.getJornada());
@@ -330,7 +331,7 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
                     }
                 }
 
-            } catch (Exception e) { 
+            } catch (NumberFormatException e) { 
                 JOptionPane.showMessageDialog(this, "El ID debe ser un numero entero.");
                 return;
             }
@@ -465,9 +466,6 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         JOptionPane.showMessageDialog(this, "Se agrego el estudiante "+nombre+" "+apellido+" al sistema.\nTotal Estudiantes: "+totalEstudiantes);
         
         botonLimpiarActionPerformed(evt);
-        opcionesBarrios.setSelectedIndex(0);
-        opcionesColegios.setSelectedIndex(0);
-        opcionesHorarios.setSelectedIndex(0);
         
     }//GEN-LAST:event_botonAgregarActionPerformed
 
@@ -476,6 +474,10 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         campoIdEstudiante.setText("");
         campoNombre.setText("");
         campoApellido.setText("");
+        
+        opcionesBarrios.setSelectedIndex(0);
+        opcionesColegios.setSelectedIndex(0);
+        opcionesHorarios.setSelectedIndex(0);
        
     }//GEN-LAST:event_botonLimpiarActionPerformed
 
@@ -490,7 +492,25 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
     private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
         // TODO add your handling code here:
         Integer idEstudiante = alguien.getIdEstudiantes();
-        int respuesta = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar este estudiante", "Advertencia", JOptionPane.YES_NO_OPTION);
+        // Logica de respuesta: NO es 0, SI es 1
+        int respuesta = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar este estudiante?", "Advertencia", JOptionPane.YES_NO_OPTION);
+        if (respuesta == JOptionPane.YES_OPTION) {
+            
+            EntityManagerFactory conexion = Persistence.createEntityManagerFactory("TioJuanitoBusesPU");
+            DaoEstudiante daoEstu = new DaoEstudiante(conexion);
+            try {
+                daoEstu.eliminar(idEstudiante);
+                int total = daoEstu.getTotalEstudiantes();
+                JOptionPane.showMessageDialog(this, "Se ha eliminado al estudiante: "+alguien.getNombre()+""+alguien.getApellido()+"\nTotal Estudiantes: "+total);
+                botonLimpiarActionPerformed(evt);
+            } catch (IllegalOrphanException ex) {
+                JOptionPane.showMessageDialog(this, "Error: No se puede eliminar el estudiante en la base de datos..");
+                return;
+            } catch (NonexistentEntityException ex) {
+                JOptionPane.showMessageDialog(this, "Error: El estudiante a eliminar no existe en la base de datos.");
+                return;
+            }
+        }
     }//GEN-LAST:event_botonEliminarActionPerformed
         
     private void cargarDatosOpcHorarios(){
