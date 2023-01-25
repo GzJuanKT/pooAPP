@@ -364,7 +364,11 @@ public class ventanaPrincipal extends javax.swing.JFrame {
             Class.forName("com.mysql.cj.jdbc.Driver");
             Connection conexion = DriverManager.getConnection(url,"root","J@nda.1110");
             Statement st = conexion.createStatement();
-            String sqlQuery = "SELECT * FROM tiojuanito.estudiantes;";
+            String sqlQuery = "SELECT idEstudiantes, nombre, Apellido, barrio, colegio, Jornada\n" +
+                                "FROM tiojuanito.estudiantes\n" +
+                                "INNER JOIN tiojuanito.barrios ON tiojuanito.estudiantes.Barrios_idBarrio = tiojuanito.barrios.idBarrio\n" +
+                                "INNER JOIN tiojuanito.horarios ON tiojuanito.estudiantes.Horarios_IdJornada = tiojuanito.horarios.IdJornada\n" +
+                                "INNER JOIN tiojuanito.colegios ON tiojuanito.estudiantes.Colegios_idColegio = tiojuanito.colegios.idColegio;";
             ResultSet rs = st.executeQuery(sqlQuery);
             
             while(tablaDatos.getRowCount() > 0){
