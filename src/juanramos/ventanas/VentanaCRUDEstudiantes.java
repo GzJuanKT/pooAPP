@@ -200,6 +200,11 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         jLabel1.setText("FORMULARIO PARA ESTUDIANTES");
 
         botonEliminar.setText("Eliminar");
+        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarActionPerformed(evt);
+            }
+        });
 
         botonLimpiar.setText("Limpiar");
         botonLimpiar.addActionListener(new java.awt.event.ActionListener() {
@@ -378,6 +383,8 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         
         try {
             daoestu.editar(alguien);
+            JOptionPane.showMessageDialog(this, "Se ha editado la informacion con exito.");
+            return;
         } catch (NonexistentEntityException ex) {
             JOptionPane.showMessageDialog(this, "Error: El estudiante a editar no existe en la base de datos.");
         } catch (Exception ex) {
@@ -479,6 +486,12 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
     private void opcionesHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesHorariosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_opcionesHorariosActionPerformed
+
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        // TODO add your handling code here:
+        Integer idEstudiante = alguien.getIdEstudiantes();
+        int respuesta = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar este estudiante", "Advertencia", JOptionPane.YES_NO_OPTION);
+    }//GEN-LAST:event_botonEliminarActionPerformed
         
     private void cargarDatosOpcHorarios(){
         String url = "jdbc:mysql://localhost:3306/test?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
