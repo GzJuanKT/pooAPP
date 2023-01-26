@@ -14,7 +14,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-import java.util.List;
+//import java.util.List;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.*;
@@ -72,6 +73,12 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         opcionesBarrios = new javax.swing.JComboBox<>();
         opcionesColegios = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        campoApellidoPadre = new javax.swing.JTextField();
+        campoNombrePadre = new javax.swing.JTextField();
+        campoIdPadre = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         botonEliminar = new javax.swing.JButton();
         botonLimpiar = new javax.swing.JButton();
@@ -121,7 +128,45 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
             }
         });
 
-        jLabel7.setText("Documento ID");
+        jLabel7.setText("ID Estudiante");
+
+        opcionesBarrios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionesBarriosActionPerformed(evt);
+            }
+        });
+
+        opcionesColegios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                opcionesColegiosActionPerformed(evt);
+            }
+        });
+
+        jLabel8.setText("ID Padre");
+
+        jLabel9.setText("Nombre Padre");
+
+        jLabel10.setText("Apellido Padre");
+
+        campoApellidoPadre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoApellidoPadreActionPerformed(evt);
+            }
+        });
+
+        campoNombrePadre.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        campoNombrePadre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoNombrePadreActionPerformed(evt);
+            }
+        });
+
+        campoIdPadre.setFont(new java.awt.Font("Dialog", 3, 12)); // NOI18N
+        campoIdPadre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoIdPadreActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelDatosLayout = new javax.swing.GroupLayout(panelDatos);
         panelDatos.setLayout(panelDatosLayout);
@@ -131,68 +176,94 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panelDatosLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(campoIdEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panelDatosLayout.createSequentialGroup()
+                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(campoIdEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(panelDatosLayout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(campoApellido))
+                                .addGroup(panelDatosLayout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelDatosLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosLayout.createSequentialGroup()
-                                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelDatosLayout.createSequentialGroup()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(opcionesHorarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(opcionesBarrios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDatosLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(panelDatosLayout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(campoApellido))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelDatosLayout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(opcionesColegios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(panelDatosLayout.createSequentialGroup()
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addGap(400, 400, 400))
+                                .addComponent(opcionesHorarios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelDatosLayout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(opcionesBarrios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelDatosLayout.createSequentialGroup()
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(opcionesColegios, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(campoIdPadre, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(panelDatosLayout.createSequentialGroup()
+                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(campoApellidoPadre))
+                        .addGroup(panelDatosLayout.createSequentialGroup()
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(campoNombrePadre, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
         );
         panelDatosLayout.setVerticalGroup(
             panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDatosLayout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(campoIdEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE)
+                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(campoIdEstudiante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(campoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelDatosLayout.createSequentialGroup()
+                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(campoIdPadre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(campoNombrePadre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(campoApellidoPadre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
-                .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(campoApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(opcionesColegios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(opcionesBarrios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(opcionesBarrios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
                 .addGroup(panelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelDatosLayout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel6))
-                    .addGroup(panelDatosLayout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(opcionesHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(46, 46, 46))
+                    .addComponent(jLabel6)
+                    .addComponent(opcionesHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(83, 83, 83))
         );
 
         jLabel1.setFont(new java.awt.Font("mononoki NF", 0, 18)); // NOI18N
@@ -395,7 +466,52 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         
         
     }//GEN-LAST:event_botonEditarActionPerformed
+      
+    private String crearPlacaBus(){
         
+        StringBuilder placa = new StringBuilder();
+        String[] letters = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        Random random = new Random();
+        int randomIndex = random.nextInt(letters.length);
+        placa.append(letters[randomIndex]);
+        randomIndex = random.nextInt(letters.length);
+        placa.append(letters[randomIndex]);
+        placa.append(random.nextInt(10));
+        placa.append(random.nextInt(10));
+        placa.append(random.nextInt(10));
+        placa.append(random.nextInt(10));
+        return placa.toString();
+    }
+    
+    private void agregarEstudianteABus(){
+        String idEstudiante = campoIdEstudiante.getText();  
+        
+        EntityManagerFactory conexion = Persistence.createEntityManagerFactory("TioJuanitoBusesPU");
+        DaoEstudiante daoEstu = new DaoEstudiante(conexion);
+        Estudiante estudiante = daoEstu.buscarEstudiante(Integer.valueOf(idEstudiante));
+        
+        DaoBus daoRutaEscolar = new DaoBus(conexion);
+
+        
+        if (estudiante != null ){
+            Bus rutaEscolar = new Bus();
+            
+            rutaEscolar.setPlacaBus(crearPlacaBus());
+            rutaEscolar.setBarriosidBarrio(estudiante.getBarriosidBarrio());
+            rutaEscolar.setColegiosidColegio(estudiante.getColegiosidColegio());
+            rutaEscolar.setHorariosIdJornada(estudiante.getHorariosIdJornada());
+            rutaEscolar.setEstudiantesidEstudiantes(estudiante);
+            
+            try {
+                daoRutaEscolar.agregar(rutaEscolar);
+                JOptionPane.showMessageDialog(this, "Estudiante agregado al bus correctamente.");
+            } catch (Exception ex) {
+                Logger.getLogger(VentanaCRUDEstudiantes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+    
     private void botonAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAgregarActionPerformed
         // TODO add your handling code here:
         
@@ -411,6 +527,7 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         Colegio colegios = new Colegio();
         Barrio barrios = new Barrio();
         Horario horarios = new Horario();
+//        Bus buses = new Bus();
         
         try {
             Integer idStudent =  Integer.valueOf(idEstudiante);
@@ -438,6 +555,7 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         DaoColegio daocole = new DaoColegio(conexion);
         DaoHorario daohorario = new DaoHorario(conexion);
         
+        
         //--
         int idBarrio = daobarrio.getIdBarrio((String) nombreBarrio);
         barrios = daobarrio.buscarBarrio(idBarrio);
@@ -452,9 +570,13 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
         alguien.setBarriosidBarrio(barrios);
         alguien.setColegiosidColegio(colegios);
         alguien.setHorariosIdJornada(horarios);
+//        
+//        Estudiante student = daoEstu.buscarEstudiante(id)
+//        buses.setPlacaBus(crearPlacaBus());
         
         try {
             daoEstu.agregar(alguien);
+            agregarEstudianteABus();
         } catch (PreexistingEntityException ex) {
             JOptionPane.showMessageDialog(this, "Ya existe un estudiante con el mismo número de identificación.");
             return;
@@ -512,6 +634,26 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_botonEliminarActionPerformed
+
+    private void campoApellidoPadreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoApellidoPadreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoApellidoPadreActionPerformed
+
+    private void campoNombrePadreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoNombrePadreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoNombrePadreActionPerformed
+
+    private void campoIdPadreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoIdPadreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoIdPadreActionPerformed
+
+    private void opcionesColegiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesColegiosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_opcionesColegiosActionPerformed
+
+    private void opcionesBarriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionesBarriosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_opcionesBarriosActionPerformed
         
     private void cargarDatosOpcHorarios(){
         String url = "jdbc:mysql://localhost:3306/test?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
@@ -627,15 +769,21 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
     private javax.swing.JButton botonEliminar;
     private javax.swing.JButton botonLimpiar;
     private javax.swing.JTextField campoApellido;
+    private javax.swing.JTextField campoApellidoPadre;
     private javax.swing.JTextField campoIdEstudiante;
+    private javax.swing.JTextField campoIdPadre;
     private javax.swing.JTextField campoNombre;
+    private javax.swing.JTextField campoNombrePadre;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JComboBox<String> opcionesBarrios;
     private javax.swing.JComboBox<String> opcionesColegios;
     private javax.swing.JComboBox<String> opcionesHorarios;
@@ -684,6 +832,18 @@ public class VentanaCRUDEstudiantes extends javax.swing.JDialog {
 
     public JComboBox<String> getOpcionesColegios() {
         return opcionesColegios;
+    }
+
+    public JTextField getCampoApellidoPadre() {
+        return campoApellidoPadre;
+    }
+
+    public JTextField getCampoIdPadre() {
+        return campoIdPadre;
+    }
+
+    public JTextField getCampoNombrePadre() {
+        return campoNombrePadre;
     }
     
     
