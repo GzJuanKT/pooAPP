@@ -41,7 +41,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         botonEstudiantes = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaDatos = new javax.swing.JTable();
+        tablaDatosEstudiantes = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuAdmin = new javax.swing.JMenu();
         itemMenuAgregarEstudiante = new javax.swing.JMenuItem();
@@ -104,17 +104,17 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 .addComponent(botonEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(botonBuses, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(222, Short.MAX_VALUE))
+                .addContainerGap(238, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        tablaDatos.setModel(new javax.swing.table.DefaultTableModel(
+        tablaDatosEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nombre", "Apellido", "Colegio", "Direccion", "Horario"
+                "ID", "Nombre", "Apellido", "Colegio", "Barrio", "Horario"
             }
         ) {
             Class[] types = new Class [] {
@@ -125,21 +125,21 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        tablaDatos.setGridColor(new java.awt.Color(255, 255, 255));
-        tablaDatos.setIntercellSpacing(new java.awt.Dimension(10, 10));
-        tablaDatos.setRowHeight(25);
-        tablaDatos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tablaDatos);
+        tablaDatosEstudiantes.setGridColor(new java.awt.Color(255, 255, 255));
+        tablaDatosEstudiantes.setIntercellSpacing(new java.awt.Dimension(10, 10));
+        tablaDatosEstudiantes.setRowHeight(25);
+        tablaDatosEstudiantes.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tablaDatosEstudiantes);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -147,7 +147,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -229,6 +229,7 @@ public class ventanaPrincipal extends javax.swing.JFrame {
 
     private void botonBusesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonBusesActionPerformed
         // TODO add your handling code here:
+        cargarDatosBuses();
     }//GEN-LAST:event_botonBusesActionPerformed
 
     private void botonEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEstudiantesActionPerformed
@@ -237,12 +238,13 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEstudiantesActionPerformed
 
     private void botonEstudiantesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEstudiantesMousePressed
-        // TODO add your handling code here:
+        // TODO add your handling code here: 
         cargarDatosEstudiantes();
     }//GEN-LAST:event_botonEstudiantesMousePressed
 
     private void botonBusesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonBusesMousePressed
-        // TODO add your handling code here:
+        // TODO add your handling code here:   
+        cargarDatosBuses();
     }//GEN-LAST:event_botonBusesMousePressed
 
     private void itemMenuAgregarEstudianteMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_itemMenuAgregarEstudianteMousePressed
@@ -273,7 +275,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                             miVentana.getBotonEliminar()};
         
         JTextComponent camposDeTexto[] = new JTextComponent[] {miVentana.getCampoNombre(),
-                                                                miVentana.getCampoApellido()
+                                                                miVentana.getCampoApellido(),
+                                                                miVentana.getCampoIdPadre(),
+                                                                miVentana.getCampoNombrePadre(),
+                                                                miVentana.getCampoApellidoPadre()
         };
         
         JComboBox comboOpciones[] = new JComboBox[] {miVentana.getOpcionesHorarios(),
@@ -298,7 +303,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                             miVentana.getBotonEditar()};
         
         JTextComponent camposDeTexto[] = new JTextComponent[] {miVentana.getCampoNombre(),
-                                                                miVentana.getCampoApellido()
+                                                                miVentana.getCampoApellido(), 
+                                                                miVentana.getCampoIdPadre(),
+                                                                miVentana.getCampoNombrePadre(),
+                                                                miVentana.getCampoApellidoPadre()
         };
         
         JComboBox comboOpciones[] = new JComboBox[] {miVentana.getOpcionesHorarios(),
@@ -322,7 +330,10 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                             miVentana.getBotonEliminar()};
         
         JTextComponent camposDeTexto[] = new JTextComponent[] {miVentana.getCampoNombre(),
-                                                                miVentana.getCampoApellido()
+                                                                miVentana.getCampoApellido(),
+                                                                miVentana.getCampoIdPadre(),
+                                                                miVentana.getCampoNombrePadre(),
+                                                                miVentana.getCampoApellidoPadre()
         };
         
         JComboBox comboOpciones[] = new JComboBox[] {miVentana.getOpcionesHorarios(),
@@ -357,7 +368,12 @@ public class ventanaPrincipal extends javax.swing.JFrame {
         }
     }
     
-    void cargarDatosEstudiantes(){
+    void cargarDatosEstudiantes(){    
+        String[] nombresColumnas = {"ID", "Nombre", "Apellido", "Colegio", "Barrio", "Horario"};
+        DefaultTableModel modeloTablaBuses = new DefaultTableModel();
+        modeloTablaBuses.setColumnIdentifiers(nombresColumnas);
+        tablaDatosEstudiantes.setModel(modeloTablaBuses);  
+        
         String url = "jdbc:mysql://localhost:3306/test?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
         
         try {
@@ -371,8 +387,8 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                                 "INNER JOIN tiojuanito.colegios ON tiojuanito.estudiantes.Colegios_idColegio = tiojuanito.colegios.idColegio;";
             ResultSet rs = st.executeQuery(sqlQuery);
             
-            while(tablaDatos.getRowCount() > 0){
-                ((DefaultTableModel) tablaDatos.getModel()).removeRow(0);
+            while(tablaDatosEstudiantes.getRowCount() > 0){
+                ((DefaultTableModel) tablaDatosEstudiantes.getModel()).removeRow(0);
             }
             
             int col = rs.getMetaData().getColumnCount();
@@ -382,7 +398,49 @@ public class ventanaPrincipal extends javax.swing.JFrame {
                 for(int i = 1; i <= col; i++){
                     rows[i-1] = rs.getObject(i);
                 }
-                ((DefaultTableModel) tablaDatos.getModel()).insertRow(rs.getRow() -1, rows);
+                ((DefaultTableModel) tablaDatosEstudiantes.getModel()).insertRow(rs.getRow() -1, rows);
+            }
+            rs.close();
+            st.close();
+            
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    void cargarDatosBuses(){      
+        String[] nombresColumnas = {"PlacaBus", "IdEstudiante", "Colegio", "Barrio", "Horario", "HoraPartida", "HoraLLegada"};
+        DefaultTableModel modeloTablaBuses = new DefaultTableModel();
+        modeloTablaBuses.setColumnIdentifiers(nombresColumnas);
+        tablaDatosEstudiantes.setModel(modeloTablaBuses);
+
+        String url = "jdbc:mysql://localhost:3306/test?useSSL=false&useTimezone=true&serverTimezone=UTC&allowPublicKeyRetrieval=true";
+        
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection conexion = DriverManager.getConnection(url,"root","J@nda.1110");
+            Statement st = conexion.createStatement();
+            String sqlQuery = "SELECT PlacaBus, idEstudiantes, colegio, barrio, Jornada, HoraPartida, HoraLLegada\n" +
+                                "FROM tiojuanito.buses\n" +
+                                "INNER JOIN tiojuanito.estudiantes ON tiojuanito.buses.Estudiantes_idEstudiantes = tiojuanito.estudiantes.idEstudiantes\n" +
+                                "INNER JOIN tiojuanito.horarios ON tiojuanito.buses.Horarios_IdJornada= tiojuanito.horarios.IdJornada\n" +
+                                "INNER JOIN tiojuanito.colegios ON tiojuanito.buses.Colegios_idColegio = tiojuanito.colegios.idColegio\n" +
+                                "INNER JOIN tiojuanito.barrios ON tiojuanito.buses.Barrios_idBarrio = tiojuanito.barrios.idBarrio;";
+            
+            ResultSet rs = st.executeQuery(sqlQuery);
+            
+            while(tablaDatosEstudiantes.getRowCount() > 0){
+                ((DefaultTableModel) tablaDatosEstudiantes.getModel()).removeRow(0);
+            }
+            
+            int col = rs.getMetaData().getColumnCount();
+            while(rs.next()){
+                
+                Object [] rows = new Object[col];
+                for(int i = 1; i <= col; i++){
+                    rows[i-1] = rs.getObject(i);
+                }
+                ((DefaultTableModel) tablaDatosEstudiantes.getModel()).insertRow(rs.getRow() -1, rows);
             }
             rs.close();
             st.close();
@@ -448,6 +506,6 @@ public class ventanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JMenu menuAdmin;
     private javax.swing.JMenu menuAyuda;
-    private javax.swing.JTable tablaDatos;
+    private javax.swing.JTable tablaDatosEstudiantes;
     // End of variables declaration//GEN-END:variables
 }
